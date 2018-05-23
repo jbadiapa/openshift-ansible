@@ -27,8 +27,8 @@
     name: "{{ consumer_type }}-consumer-{{ item.name }}"
     namespace: "{{ sa_telemetry_consumers_namespace }}"
     labels:
-      sa-telemetry-app: {{ consumer_type }}-consumer
-      app: {{ consumer_type }}-consumer
+      sa-telemetry-app: "{{ consumer_type }}-consumer"
+      app: "{{ consumer_type }}-consumer"
       node: "{{ item.name }}"
     ports:
     - name: "{{ consumer_type }}-consumer"
@@ -36,7 +36,7 @@
       targetPort: 8081
       protocol: TCP
     selector:
-      sa-telemetry-app: {{ consumer_type }}-consumer-{{ item.name }}
+      sa-telemetry-app: "{{ consumer_type }}-consumer-{{ item.name }}"
   with_items: "{{ sa_telemetry_node_labels }}"
 
 - name: ServiceMonitor for {{ consumer_type }} consumer
