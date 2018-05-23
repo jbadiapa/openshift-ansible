@@ -1,13 +1,11 @@
 ---
 - name: ConfigMap for {{ consumer_type }} consumer
-  oc_obj:
+  oc_configmap:
     state: present
     name: "{{ consumer_type }}-config-{{ item.name }}"
     namespace: "{{ sa_telemetry_consumers_namespace }}"
-    kind: ConfigMap
-    content:
-      path: /tmp/cmout
-      data: "{{ lookup('template', '{{ consumer_type }}-consumer-configmap.yaml.j2') | from_yaml }}"
+    from_literal:
+      "{{ lookup('template', '{{ consumer_type }}-consumer-configmap.yaml.j2') | from_yaml }}"
   with_items: "{{ sa_telemetry_node_labels }}"
 
 - name: Deployment for {{ consumer_type }} consumer
