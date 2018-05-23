@@ -1,0 +1,34 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: events-consumer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        sa-telemetry-app: events-consumer
+    spec:
+      securityContext:
+        nonroot: true
+      containers:
+      - name: metrics-consumer
+        image: docker.io/nfvpe/events_consumer:1.0.0
+        volumeMounts:
+        - name: events-config
+          mountPath: /config
+        resources:
+          requests:
+            memory: 100Mi
+            cpu: 100m
+          limits:
+            memory: 200Mi
+            cpu: 200m
+        args: ["-config=/config/sa.events.config.json"]
+        ports:
+        - name: events
+          containerPort: 8081
+      volumes:
+      - name: events-config
+        configMap:
+          name: events-config
