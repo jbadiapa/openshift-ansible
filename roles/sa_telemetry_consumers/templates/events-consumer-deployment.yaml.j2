@@ -1,13 +1,13 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: events-consumer
+  name: events-consumer-{{ item.name }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        sa-telemetry-app: events-consumer
+        sa-telemetry-app: events-consumer-{{ item.name }}
     spec:
       securityContext:
         nonroot: true
@@ -31,4 +31,6 @@ spec:
       volumes:
       - name: events-config
         configMap:
-          name: events-config
+          name: events-config-{{ item.name }}
+      nodeSelector:
+        node: {{ item.name }}

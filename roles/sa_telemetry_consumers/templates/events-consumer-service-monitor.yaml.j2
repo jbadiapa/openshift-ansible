@@ -1,16 +1,16 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: events-consumer
+  name: events-consumer-{{ item.name }}
   labels:
-    sa-telemetry-app: events-consumer
+    sa-telemetry-app: events-consumer-{{ item.name }}
 spec:
   selector:
     matchLabels:
-      sa-telemetry-app: events-consumer
+      sa-telemetry-app: events-consumer-{{ item.name }}
   namespaceSelector:
     matchNames:
     - {{ sa_telemetry_consumers_namespace }}
   endpoints:
-  - port: events-consumer
+  - port: events
     interval: 4s
