@@ -51,3 +51,4 @@
       data: "{{ lookup('template', '{{ consumer_type }}-consumer-service-monitor.yaml.j2') | from_yaml }}"
   ignore_errors: true
   with_items: "{{ sa_telemetry_node_labels }}"
+  when: consumer_type == "metrics"
