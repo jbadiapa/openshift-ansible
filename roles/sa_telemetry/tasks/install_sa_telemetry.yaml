@@ -29,3 +29,8 @@
     name: sa_telemetry_qdr
   vars:
     sa_telemetry_qdr_namespace: "{{ sa_telemetry_namespace }}"
+
+- include_role:
+    name: sa_telemetry_alertmanager
+  vars:
+    sa_telemetry_alertmanager_namespace: "{{ sa_telemetry_namespace }}"
