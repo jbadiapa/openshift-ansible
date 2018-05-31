@@ -1,0 +1,4 @@
+---
+- name: rollout_rc_asb
+  command: >
+    {{ openshift_client_binary }} rollout latest dc/asb -n openshift-ansible-service-broker

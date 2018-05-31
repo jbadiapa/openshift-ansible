@@ -1,0 +1,5 @@
+---
+sa_telemetry_users:
+  - name: lmadsen
+    pass: $apr1$vIhGBOf9$hTJ9O676nXZJBrP339Li30
+    role: admin
