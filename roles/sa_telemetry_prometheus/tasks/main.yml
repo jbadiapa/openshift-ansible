@@ -65,17 +65,7 @@
       path: /tmp/rbout
       data: "{{ lookup('template', 'prometheus-sa-telemetry-kube-system-rolebinding.yaml.j2') | from_yaml }}"
 
-- name: Deploy Prometheus via Operator
-  oc_obj:
-    force: yes
-    name: sa
-    namespace: "{{ sa_telemetry_prometheus_namespace }}"
-    kind: Prometheus
-    content:
-      path: /tmp/pout
-      data: "{{ lookup('template', 'prometheus-sa-telemetry-deployment.yaml.j2') | from_yaml }}"
-
-- name: Create services for prometheus
+- name: Create service for prometheus deployments
   oc_service:
     name: "{{ sa_telemetry_prometheus_service_name }}"
     namespace: "{{ sa_telemetry_prometheus_namespace }}"
@@ -99,3 +89,11 @@
   with_items:
     - name: prometheus
       host: "{{ sa_telemetry_prometheus_hostname }}"
+
+# deploy separate instances via the operator
+- include_tasks: deploy.yml
+  loop:
+    - blue
+    - green
+  loop_control:
+    loop_var: node

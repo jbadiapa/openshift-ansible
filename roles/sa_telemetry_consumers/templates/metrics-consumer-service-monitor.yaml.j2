@@ -3,7 +3,7 @@ kind: ServiceMonitor
 metadata:
   name: metrics-consumer-{{ item.name }}
   labels:
-    sa-telemetry-app: metrics-consumer-{{ item.name }}
+    sa-telemetry-app-{{ item.name }}: metrics-consumer-{{ item.name }}
 spec:
   selector:
     matchLabels:

@@ -1,20 +1,23 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
-  name: sa
+  name: {{ node }}
   labels:
     prometheus: prometheus-sa-telemetry
 spec:
-  replicas: 2
+  podMetadata:
+    labels:
+      sa-app: prometheus-{{ node }}
+  replicas: {{ sa_telemetry_prometheus_replicas }}
   version: v2.2.0-rc.1
   serviceAccountName: {{ sa_telemetry_prometheus_serviceaccount_name }}
   serviceMonitorSelector:
     matchExpressions:
-    - {key: sa-telemetry-app, operator: Exists}
+    - {key: sa-telemetry-app-{{ node }}, operator: Exists}
   securityContext:
     nonroot: true
   nodeSelector:
-    node: blue
+    node: {{ node }}
   podAntiAffinity: hard
   ruleSelector:
     matchLabels:
