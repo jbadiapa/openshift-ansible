@@ -38,7 +38,7 @@
       targetPort: "{{ sa_telemetry_alertmanager_service_targetport }}"
       protocol: TCP
     selector:
-      app: sa-telemetry-alertmanager
+      sa-app: alertmanager
 
 - name: Create Alertmanager route
   oc_route:
