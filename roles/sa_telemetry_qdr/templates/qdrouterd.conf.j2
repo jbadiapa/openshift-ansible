@@ -27,7 +27,7 @@ data:
 
 {% if sa_telemetry_node_labels[(label_index + 1)] is defined %}    connector {
         role: inter-router
-        host: {{ sa_telemetry_node_labels[(label_index + 1)]['name'] }}.{{ sa_telemetry_qdr_hostname }}
+        host: messaging-external-{{ sa_telemetry_node_labels[(label_index + 1)]['name'] }}.{{ sa_telemetry_qdr_namespace }}.svc
         port: 20001
         saslMechanisms: ANONYMOUS
     }{% endif %}
