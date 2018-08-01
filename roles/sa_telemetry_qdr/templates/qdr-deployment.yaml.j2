@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: qdr-{{ item.name }}
-        image: nfvpe/qpid-dispatch-router:latest
+        image: nfvpe/qpid-dispatch-router:1.2.0-2
         imagePullPolicy: IfNotPresent
         ports:
         - name: internal
